@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>婚紗照相簿</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 1rem;
+      font-family: sans-serif;
+      background-color: #fdfdfd;
+    }
+
+    h1 {
+      text-align: center;
+      color: #444;
+      margin-bottom: 1.5rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.03);
+    }
+
+    /* Overlay for large image */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <h1>元禾&瑀珊的婚紗照</h1>
+  <div class="gallery">
+    <!-- 範例縮圖 -->
+    <img src="1.jpg" alt="婚紗照 1">
+    <img src="2.jpg" alt="婚紗照 2">
+    <img src="3.jpg" alt="婚紗照 3">
+    <img src="4.jpg" alt="婚紗照 4">
+    <img src="5.jpg" alt="婚紗照 5">
+	<img src="6.jpg" alt="婚紗照 6">
+	<img src="7.jpg" alt="婚紗照 7">
+	<img src="8.jpg" alt="婚紗照 8">
+    <!-- 持續加入直到 photo50.jpg -->
+    <!-- ... -->
+    <img src="photo50.jpg" alt="婚紗照 50">
+  </div>
+
+  <div class="overlay" id="overlay">
+    <img id="overlay-img" src="" alt="放大圖片">
+  </div>
+
+  <script>
+    const overlay = document.getElementById('overlay');
+    const overlayImg = document.getElementById('overlay-img');
+    const images = document.querySelectorAll('.gallery img');
+
+    images.forEach(img => {
+      img.addEventListener('click', () => {
+        overlayImg.src = img.src;
+        overlay.style.display = 'flex';
+      });
+    });
+
+    overlay.addEventListener('click', (e) => {
+      // 只有點在 overlay 背景時才關閉（避免點到圖片沒反應）
+      if (e.target === overlay) {
+        overlay.style.display = 'none';
+        overlayImg.src = '';
+      }
+    });
+  </script>
+</body>
+</html>
